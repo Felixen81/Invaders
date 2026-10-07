@@ -5,7 +5,7 @@ using SFML.Window;
 
 class Program
 {
-    //Public const used to get unchanged values. 
+    //Public const used to set unchanged values. 
     public const int SceenWidth = 400;
     public const int SceenHeight = 600;
 
@@ -18,7 +18,7 @@ class Program
             window.Closed += (s, e) => window.Close();
         
             Clock clock = new Clock(); // Clock instance used for updating entities
-            // Scene scene = new Scene();
+            Scene scene = new Scene();
         
             //Loop that plays when window is open.
             while (window.IsOpen)
@@ -32,8 +32,7 @@ class Program
                 // Clears the window
                 window.Clear(new Color(0, 0, 0));
                 // Renders the entities with new positions
-                //scene.RenderAll(window);
-                // Display it
+                scene.RenderAll(window);
                 window.Display();
             }
         }
