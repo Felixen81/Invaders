@@ -10,7 +10,6 @@ public class Scene
     public Scene()
     {
         entities = new List<Entity>();
-        
         Start();
     }
 
