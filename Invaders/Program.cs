@@ -28,7 +28,7 @@ class Program
                 deltaTime = MathF.Min(deltaTime, 0.01f);
             
                 // Update the entity positions
-                //scene.UpdateAll(deltaTime);
+                scene.UpdateAll(deltaTime);
                 // Clears the window
                 window.Clear(new Color(0, 0, 0));
                 // Renders the entities with new positions

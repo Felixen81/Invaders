@@ -27,16 +27,19 @@ public class Entity
         }
     }
 
+    //Virtual property to send Global bounds to all entities.
     public virtual FloatRect Bounds => sprite.GetGlobalBounds();
 
+    
     public virtual void Update(Scene scene, float deltaTime)
     {
-        /*
-        foreach (Entity entity in scene.FindEntityInterSects(Bounds))
+        
+        foreach (Entity entity in scene.FindEntityIntersects(Bounds)
+                     .Where(entity => !entity.Dead).Where(entity => entity is Actor))
         {
-            CollideWithEntity(scene, entity);
+            CollidedWithEntity(scene, entity);
         }
-        */
+        
     }
 
     public virtual void Create(Scene scene)
@@ -49,7 +52,7 @@ public class Entity
         
     }
 
-    public virtual void CollidedWithEntity(Scene scene, Entity entity)
+    protected virtual void CollidedWithEntity(Scene scene, Entity entity)
     {
         
     }

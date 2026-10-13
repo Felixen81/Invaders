@@ -2,6 +2,7 @@
 
 public class EventManager
 {
+    //Delegate 
     public delegate void ValueChangedEvent(Scene scene, int value);
 
     public event ValueChangedEvent LoseHealth;

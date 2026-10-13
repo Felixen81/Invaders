@@ -19,35 +19,38 @@ public class Actor :Entity
     {
         
     }
-    //Updates the actor.
+    //Updates the actor behavior.
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
-        
-        
+        //Gives the actor the right direction
+        direction = ChoseDirection(scene);
+        //Checks if the actor may move.
+        if (!isMoving) 
+        {
+            return;
+        }
+        Position += DirectionVector2F(direction) * (speed * deltaTime);
+
     }
 
     //Different vectors used by the actors.
     //Since the actors will have different speeds and directions we keep it protected but static to be reached outside of class.
-    protected static Vector2f DirectionVector2f(int dir)
+    //All actors may use this to get their directions correct.
+    protected static Vector2f DirectionVector2F(int dir)
     {
         switch (dir)
         {
           case 0:
               return new Vector2f(1, 0);
-               break;
           case 1:
               return new Vector2f(0, 1);
-              break;
           case 2:
               return new Vector2f(0, -1);
-              break;
           case 3:
               return new Vector2f(-1, 0);
-              break;
           case 4:
               return new Vector2f(2, 1);
-              break;
           case 5:
               return new Vector2f(-2, 1);
               
@@ -55,5 +58,10 @@ public class Actor :Entity
         }
 
         return new Vector2f(0, 0);
+    }
+
+    protected virtual int ChoseDirection(Scene scene)
+    {
+        return 0;
     }
 }
