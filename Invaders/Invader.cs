@@ -90,7 +90,7 @@ public class Invader : Actor
     
     
     
-//A collision check meant to check if the bullet fired is not a enemy (not its own bullet or other invader bullets)
+//A collision check meant to check if the bullet fired is not an enemy (not its own bullet or other invader bullets)
     protected override void CollidedWithEntity(Scene scene, Entity entity)
     {
         if (entity is Bullet)
