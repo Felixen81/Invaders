@@ -26,12 +26,13 @@ public class Actor :Entity
         //Gives the actor the right direction
         direction = ChoseDirection(scene);
         //Checks if the actor may move.
+        
         if (!isMoving) 
         {
             return;
         }
         Position += DirectionVector2F(direction) * (speed * deltaTime);
-
+        Console.WriteLine(Position);
     }
 
     //Different vectors used by the actors.

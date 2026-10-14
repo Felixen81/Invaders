@@ -28,9 +28,26 @@ public class Scene
         entity.Create(this);
     }
 
+    
+    
+    //An UpdateAll that updates all entities in the scene.
+    //Same way in pacman where it removes entities from scene for less lag.
     public void UpdateAll(float deltaTime)
     {
-        
+        // Cycles through all entites and updates them
+        for (int i = entities.Count - 1; i >= 0; i--)
+        {
+            Entity e = entities[i];
+            e.Update(this, deltaTime);
+        }
+
+        // Clears any dead entities from the list so the game wont update entities that arent being used.
+        for (int i = 0; i < entities.Count;)
+        {
+            Entity e = entities[i];
+            if (e.Dead) entities.RemoveAt(i);
+            else i++;
+        }
     }
     
     public void RenderAll(RenderTarget target)
