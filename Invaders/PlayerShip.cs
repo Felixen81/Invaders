@@ -8,15 +8,37 @@ public class PlayerShip :Actor
 {
     private float invunrable;
     
+    
+    
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
 
+        if (timebetweenShot >= 0)
+        {
+            timebetweenShot -= deltaTime;
+        }
         //Cooldown of being imortal.
         if (invunrable >= 0)
         {
             invunrable -= deltaTime;
         }
+
+
+        if (Keyboard.IsKeyPressed(Keyboard.Key.Space) && timebetweenShot <= 0)
+        {
+            Bullet bullet1 = new Bullet();
+            bullet1.enemy = false;
+            bullet1.Shoot(scene, this);
+            bullet1.Position = new Vector2f(Position.X + 7f,Position.Y + 15f);
+
+            Bullet bullet2 = new Bullet();
+            bullet2.enemy = false;
+            bullet2.Shoot(scene, this);
+            bullet2.Position = new Vector2f(Position.X -7f, Position.Y + 15f);
+        }
+        
+        
     }
     
     public override void Create(Scene scene)
@@ -55,11 +77,13 @@ public class PlayerShip :Actor
             dir = 2; 
             isMoving = true;
         }
-        if (Keyboard.IsKeyPressed(Keyboard.Key.A) || Keyboard.IsKeyPressed(Keyboard.Key.Left)) 
+
+        if (Keyboard.IsKeyPressed(Keyboard.Key.A) || Keyboard.IsKeyPressed(Keyboard.Key.Left))
         {
-            dir = 3; 
+            dir = 3;
             isMoving = true;
-        } 
+        }
+        
         return dir;
     }
     

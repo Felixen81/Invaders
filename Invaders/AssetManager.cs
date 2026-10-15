@@ -25,7 +25,7 @@ public class AssetManager
     {
         return new Font($"{Assetpath}/{name}.ttf");
     }
-    //Loads text where it find it from our assestpath.
+    //Loads text where it finds it from our assestpath.
     public string LoadText(string name)
     {
         return $"{Assetpath}/{name}.txt";

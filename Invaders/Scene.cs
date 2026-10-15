@@ -1,4 +1,6 @@
-﻿namespace Invaders;
+﻿using SFML.System;
+
+namespace Invaders;
 using SFML.Graphics;
 
 public class Scene
@@ -6,6 +8,7 @@ public class Scene
     private readonly List<Entity> entities;
     public readonly EventManager eventManager = new EventManager();
     public readonly AssetManager assetManager = new AssetManager();
+    
     
     public Scene()
     {
@@ -15,7 +18,9 @@ public class Scene
 
     public void Start()
     {
+        
         entities.Clear();
+        
         PlayerShip playerShip = new PlayerShip();
         Invader invader = new Invader();
         Spawn(playerShip);
@@ -24,6 +29,7 @@ public class Scene
 
     public void Spawn(Entity entity)
     {
+        
         entities.Add(entity);
         entity.Create(this);
     }
@@ -52,10 +58,12 @@ public class Scene
     
     public void RenderAll(RenderTarget target)
     {
+        
         for (int i = entities.Count-1; i >= 0; i--)
         {
             entities[i].Render(target);
         }
+        
     }
 
     

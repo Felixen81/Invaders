@@ -6,6 +6,8 @@ public class Actor :Entity
 {
     //This is protected so we can't change the value of it only get it.
     protected float speed;
+    //A float used to count the timebetweenShots in deltaTime.
+    
     protected float timebetweenShot;
 
     public int direction;
@@ -32,7 +34,7 @@ public class Actor :Entity
             return;
         }
         Position += DirectionVector2F(direction) * (speed * deltaTime);
-        Console.WriteLine(Position);
+        
     }
 
     //Different vectors used by the actors.

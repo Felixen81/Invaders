@@ -10,7 +10,7 @@ public class Invader : Actor
 
     public Invader()
     {
-        // isMoving = true;
+        isMoving = true;
         
     }
 
@@ -80,7 +80,7 @@ public class Invader : Actor
         return dir;
     }
 
-
+     //Randomly spawns the enemy outside of the screen.
     private int RandomSpawn()
     {
         Random random = new Random();
@@ -110,7 +110,7 @@ public class Invader : Actor
 
     public override void Destroy(Scene scene)
     {
-        base.Destroy(scene);
+        
         
     }
 }
