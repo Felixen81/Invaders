@@ -1,13 +1,14 @@
-﻿using SFML.System;
-
+﻿
 namespace Invaders;
 using SFML.Graphics;
+u
 
 public class Scene
 {
     private readonly List<Entity> entities;
     public readonly EventManager eventManager = new EventManager();
     public readonly AssetManager assetManager = new AssetManager();
+   
     
     
     public Scene()
@@ -47,7 +48,7 @@ public class Scene
             e.Update(this, deltaTime);
         }
 
-        // Clears any dead entities from the list so the game wont update entities that arent being used.
+        // Clears any dead entities from the list so the game dosen't lag.
         for (int i = 0; i < entities.Count;)
         {
             Entity e = entities[i];
