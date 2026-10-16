@@ -1,15 +1,13 @@
-﻿
-namespace Invaders;
+﻿namespace Invaders;
 using SFML.Graphics;
-u
+using SFML.System;
 
 public class Scene
 {
     private readonly List<Entity> entities;
     public readonly EventManager eventManager = new EventManager();
     public readonly AssetManager assetManager = new AssetManager();
-   
-    
+    public readonly Invadermanager invadermanager = new Invadermanager();
     
     public Scene()
     {
@@ -19,15 +17,21 @@ public class Scene
 
     public void Start()
     {
-        
         entities.Clear();
-        
         PlayerShip playerShip = new PlayerShip();
-        Invader invader = new Invader();
         Spawn(playerShip);
-        Spawn(invader);
+        
+        GUI gui = new GUI();
+        Spawn(gui);
+        
+        //Invader frequency.
+        invadermanager.spawnTime = 5f;
+
     }
 
+    
+    //Liknande som i pacman.
+    //Adds all entities from the list and runs a create function.
     public void Spawn(Entity entity)
     {
         
@@ -41,6 +45,15 @@ public class Scene
     //Same way in pacman where it removes entities from scene for less lag.
     public void UpdateAll(float deltaTime)
     {
+        invadermanager.InvaderManagerUpdate(this, deltaTime);
+
+        //Spawns the invaders
+        if (invadermanager.timeBetweenInvaders <= 0)
+        {
+            Invader invader = new Invader();
+            Spawn(invader);
+        }
+        
         // Cycles through all entites and updates them
         for (int i = entities.Count - 1; i >= 0; i--)
         {
@@ -55,8 +68,12 @@ public class Scene
             if (e.Dead) entities.RemoveAt(i);
             else i++;
         }
+        //Updates all the events.
+        eventManager.UpdateEvents(this);
+        
     }
     
+    //Renders all entities in the scene.
     public void RenderAll(RenderTarget target)
     {
         
@@ -68,7 +85,8 @@ public class Scene
     }
 
     
-    //Check if two entities intersects bounds through a for loop.
+    //Check if two entities intersects bounds through a IEnurmerable. 
+    //Same way in pacman.
     public IEnumerable<Entity> FindEntityIntersects(FloatRect entityBounds)
     {
         int lastInList = entities.Count - 1;
