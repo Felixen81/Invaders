@@ -1,6 +1,6 @@
 ﻿namespace Invaders;
 using SFML.Graphics;
-using SFML.System;
+
 
 public class Scene
 {
@@ -8,6 +8,8 @@ public class Scene
     public readonly EventManager eventManager = new EventManager();
     public readonly AssetManager assetManager = new AssetManager();
     public readonly Invadermanager invadermanager = new Invadermanager();
+    //Made private only on background to only read new instance.
+    private readonly BackGround backGround = new BackGround();
     
     public Scene()
     {
@@ -18,16 +20,15 @@ public class Scene
     public void Start()
     {
         entities.Clear();
-
-        
-      
+        //creates background separately.
+        backGround.Create(this);
         PlayerShip playerShip = new PlayerShip();
         Spawn(playerShip);
         GUI gui = new GUI();
         Spawn(gui);
         //Invader frequency.
         invadermanager.spawnTime = 5;
-
+        
     }
     
     
@@ -74,6 +75,8 @@ public class Scene
     //Renders all entities in the scene.
     public void RenderAll(RenderTarget target)
     {
+        //Also renders separately.
+        backGround.Render(target);
         
         for (int i = entities.Count-1; i >= 0; i--)
         {
@@ -83,7 +86,7 @@ public class Scene
     }
 
     
-    //Check if two entities intersects bounds through an Enurmerable. 
+    //Check if two entities intersects bounds through an Enumerable. 
     //Same way in pacman.
     public IEnumerable<Entity> FindEntityIntersects(FloatRect entityBounds)
     {
