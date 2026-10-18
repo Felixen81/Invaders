@@ -6,7 +6,8 @@ using SFML.System;
 public class Invader : Actor
 {
     private float timeBetweenBullets; //The cooldown of invader shooting
-
+    //Calling explosion class to when the instance of enemy ship is destroyed.
+    public Explosion explosion = new Explosion();
 
     public Invader()
     {
@@ -26,8 +27,20 @@ public class Invader : Actor
             > 630 => new Vector2f(Position.X, -32),
             _ => Position
         };
-            
-
+        
+        // Checks the timebetweenBullets and shoots if the time has been counted.
+        if (timeBetweenBullets >= 0)
+        {
+            timeBetweenBullets -= deltaTime;
+        }
+        else
+        {
+            Bullet bullet = new Bullet();
+            bullet.enemy = true;
+            bullet.Shoot(scene, this);
+            bullet.Position = Position - new Vector2f(0, -16);
+            timeBetweenBullets = RandomBulletTime();
+        }
 
 
 
@@ -50,14 +63,14 @@ public class Invader : Actor
         //Start direction.
         direction = 4;
        
-        //TODO change 32 to -32
+       
         //Gives a random x spawn position outside the screen.
-        sprite.Position = new Vector2f(RandomSpawn() , 32);
+        sprite.Position = new Vector2f(RandomSpawn() , -32);
 
     }
 
     
-    //Chooses correct direction Invader should go.
+    //Chooses correct direction Invader should go when it has bounced of the wall.
     protected override int ChoseDirection(Scene scene)
     {
         int dir = direction;
@@ -80,7 +93,7 @@ public class Invader : Actor
         return dir;
     }
 
-     //Randomly spawns the enemy outside of the screen.
+     //Randomly spawns the enemy outside the screen.
     private int RandomSpawn()
     {
         Random random = new Random();
@@ -88,9 +101,17 @@ public class Invader : Actor
         return spawn;
     }
     
+    // Random time between the bullets
+    private float RandomBulletTime()
+    {
+        Random random = new Random();
+        float time = random.Next(1, 5);
+        return time;
+    }
     
     
-//A collision check meant to check if the bullet fired is not an enemy (not its own bullet or other invader bullets)
+    
+    //A collision check meant to check if the bullet fired is not an enemy (not its own bullet or other invader bullets)
     protected override void CollidedWithEntity(Scene scene, Entity entity)
     {
         if (entity is Bullet)
@@ -107,10 +128,11 @@ public class Invader : Actor
         }
     }
 
-
+    //calls the explosion function here inside destroy.
     public override void Destroy(Scene scene)
     {
-        
+        base.Destroy(scene);
+        explosion.Explode(scene, this);
         
     }
 }

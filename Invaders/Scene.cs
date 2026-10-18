@@ -18,28 +18,26 @@ public class Scene
     public void Start()
     {
         entities.Clear();
+
+        
+      
         PlayerShip playerShip = new PlayerShip();
         Spawn(playerShip);
-        
         GUI gui = new GUI();
         Spawn(gui);
-        
         //Invader frequency.
-        invadermanager.spawnTime = 5f;
+        invadermanager.spawnTime = 5;
 
     }
-
     
-    //Liknande som i pacman.
+    
     //Adds all entities from the list and runs a create function.
     public void Spawn(Entity entity)
     {
-        
         entities.Add(entity);
         entity.Create(this);
     }
 
-    
     
     //An UpdateAll that updates all entities in the scene.
     //Same way in pacman where it removes entities from scene for less lag.
@@ -54,14 +52,14 @@ public class Scene
             Spawn(invader);
         }
         
-        // Cycles through all entites and updates them
+        // Cycles through all entities and updates them
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity e = entities[i];
             e.Update(this, deltaTime);
         }
 
-        // Clears any dead entities from the list so the game dosen't lag.
+        // Clears any dead entities from the list so the game doesn't lag.
         for (int i = 0; i < entities.Count;)
         {
             Entity e = entities[i];
@@ -85,7 +83,7 @@ public class Scene
     }
 
     
-    //Check if two entities intersects bounds through a IEnurmerable. 
+    //Check if two entities intersects bounds through an Enurmerable. 
     //Same way in pacman.
     public IEnumerable<Entity> FindEntityIntersects(FloatRect entityBounds)
     {

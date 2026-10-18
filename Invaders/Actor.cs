@@ -6,8 +6,8 @@ public class Actor :Entity
 {
     //This is protected so we can't change the value of it only get it.
     protected float speed;
-    //A float used to count the timebetweenShots in deltaTime.
     
+    //A float used to count the timebetweenShots in deltaTime.
     protected float timebetweenShot;
 
     public int direction;
@@ -63,6 +63,7 @@ public class Actor :Entity
         return new Vector2f(0, 0);
     }
 
+    //Used in invader and playership differently.
     protected virtual int ChoseDirection(Scene scene)
     {
         return 0;

@@ -10,13 +10,14 @@ public class Invadermanager
  
     public Invadermanager()
     {
-        // Makes a invader spawn at the start of the game
+        // Makes an invader spawn at the start of the game
         timeBetweenInvaders = 0; 
     }
 
     public void InvaderManagerUpdate(Scene scene, float deltaTime)
     {
-        spawnTime -= deltaTime/10; // Makes the spawnTime smaller and smaller over time
+        // Makes the spawnTime smaller and smaller over time
+        spawnTime -= deltaTime/10; 
      
         // Makes the invader not spawn faster than 0.5 sec
         if (spawnTime <= 0.5f)
@@ -24,7 +25,7 @@ public class Invadermanager
             spawnTime = 0.5f;
         }
      
-        // Maked timeBetweenInvaders smaller with time if its bigger than 0
+        // Makes timeBetweenInvaders smaller with time if it's bigger than 0.
         if (timeBetweenInvaders >= 0)
         {
             timeBetweenInvaders -= deltaTime;

@@ -39,7 +39,7 @@ public class Bullet :Actor
         
     }
 
-    //Kills any bullets outside of the screen.
+    //Kills any bullets outside the screen.
     private void OutsideofScreen()
     {
         //top

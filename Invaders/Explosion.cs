@@ -29,7 +29,7 @@ public class Explosion : Entity
         timeBeforeDead = 0.3f;
     }
 
-    //Spawns it on the correct position
+    //Spawns it on the correct position where invaders dies.
     public void Explode(Scene scene, Invader invader)
     {
         sprite.Position = invader.Position;

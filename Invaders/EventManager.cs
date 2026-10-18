@@ -17,6 +17,7 @@ public class EventManager
         }
     }
 
+    //The publisher for LoseHealthEvent
     public void PublishLoseHealth(int amount)
     {
         healthlost += amount;
