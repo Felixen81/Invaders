@@ -38,6 +38,7 @@ public class Entity
         
         //Similar function to pacman, where it checks for any intersected bounds.
         //Bullets colliding with enemy, and enemy bullets colliding to Playership.
+        //This is why it can't collide with GUI or backGround entity because its only checks for actors.
         foreach (Entity entity in scene.FindEntityIntersects(Bounds)
                      .Where(entity => !entity.Dead).Where(entity => entity is Actor))
         {

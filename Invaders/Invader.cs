@@ -65,7 +65,7 @@ public class Invader : Actor
        
        
         //Gives a random x spawn position outside the screen.
-        sprite.Position = new Vector2f(RandomSpawn() , -32);
+        sprite.Position = new Vector2f(RandomSpawn(), -32);
 
     }
 
@@ -93,11 +93,11 @@ public class Invader : Actor
         return dir;
     }
 
-     //Randomly spawns the enemy outside the screen.
+     //Randomly spawns the enemy.
     private int RandomSpawn()
     {
         Random random = new Random();
-        int spawn = random.Next(10, 384);
+        int spawn = random.Next(5, 384);
         return spawn;
     }
     

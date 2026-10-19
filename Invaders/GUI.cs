@@ -24,9 +24,7 @@ public class GUI : Entity
         {
             scene.Start();
         }
-     
     }
-    
     
     public override void Create(Scene scene)
     {
@@ -63,7 +61,7 @@ public class GUI : Entity
             sprite.TextureRect = i < currentHealth ? new IntRect(16, 0, 8, 8) 
                 : new IntRect(32, 0, 8, 8);
             base.Render(target);
-            // Makes the sprites not be on top of eachother.
+            // Makes the sprites not be on top of eachother with an offset.
             sprite.Position += new Vector2f(25, 0); 
         }
     }

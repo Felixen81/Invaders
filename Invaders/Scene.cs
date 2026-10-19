@@ -49,6 +49,7 @@ public class Scene
         //Spawns the invaders
         if (invadermanager.timeBetweenInvaders <= 0)
         {
+            
             Invader invader = new Invader();
             Spawn(invader);
         }
@@ -90,13 +91,17 @@ public class Scene
     //Same way in pacman.
     public IEnumerable<Entity> FindEntityIntersects(FloatRect entityBounds)
     {
+        //Last int is local variable.
         int lastInList = entities.Count - 1;
         for (int i = lastInList; i >=0; i--)
         {
             Entity entity = entities[i];
+            //If something is dead it runs from the top again and checks the next entity.
             if(entity.Dead) continue;
             if (entity.Bounds.Intersects(entityBounds))
             {
+                //A yield return is used to return entity.
+                //uses a yield return to wait for next call on iteration.
                 yield return entity;
             }
         }
