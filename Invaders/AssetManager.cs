@@ -4,7 +4,7 @@ using SFML.Graphics;
 public class AssetManager
 {
     //Reads strings with name assets.
-    public static readonly string Assetpath = "assets";
+    private static readonly string Assetpath = "assets";
     private readonly Dictionary<string, Texture> textures;
     private readonly Dictionary<string, Font> fonts;
 

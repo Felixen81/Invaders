@@ -12,7 +12,6 @@ public class Invader : Actor
     public Invader()
     {
         isMoving = true;
-        
     }
 
     // If it leaves the bottom of the screen it will reappear on the top side
