@@ -7,6 +7,7 @@ public class Invadermanager
     // Both used for checking when the invader should be spawned
     public float timeBetweenInvaders;
     public float spawnTime = 5f;
+    
  
     public Invadermanager()
     {
@@ -16,10 +17,13 @@ public class Invadermanager
 
     public void InvaderManagerUpdate(Scene scene, float deltaTime)
     {
-        // Makes the spawnTime smaller and smaller over time
-        spawnTime -= deltaTime/10; 
+        // Makes the spawnTime smaller and smaller over time.
+        //Counts down in deltaTime from 5.
+        spawnTime -= deltaTime/10;
+       
      
-        // Makes the invader not spawn faster than 0.5 sec
+        // Makes the invader not spawn faster than 0.5 sec.
+        //If this isn't set the invaders would spawn uncontrollably fast.
         if (spawnTime <= 0.5f)
         {
             spawnTime = 0.5f;
@@ -28,11 +32,13 @@ public class Invadermanager
         // Makes timeBetweenInvaders smaller with time if it's bigger than 0.
         if (timeBetweenInvaders >= 0)
         {
+            
             timeBetweenInvaders -= deltaTime;
         }
-        // Makes the timeBetweenInvaders to spawnTime that is used to decide when the invader is spawned
+        // Makes the timeBetweenInvaders to spawnTime that is used to decide when the invader is spawned.
         else
         {
+            
             timeBetweenInvaders = spawnTime;
         }
     }
