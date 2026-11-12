@@ -41,14 +41,14 @@ public class PlayerShip :Actor
         if (Keyboard.IsKeyPressed(Keyboard.Key.Space) && timebetweenShot <= 0)
         {
             Bullet bullet1 = new Bullet();
-            bullet1.enemy = false;
-            bullet1.Shoot(scene, this);
-            bullet1.Position = new Vector2f(Position.X + 7f,Position.Y + 15f);
+            scene.Spawn(bullet1);
+            bullet1.Shoot(new Vector2f(Position.X + 7f,Position.Y + 15f),0, direction,false);
+         
 
             Bullet bullet2 = new Bullet();
-            bullet2.enemy = false;
-            bullet2.Shoot(scene, this);
-            bullet2.Position = new Vector2f(Position.X -7f, Position.Y + 15f);
+            scene.Spawn(bullet2);
+            bullet2.Shoot(new Vector2f(Position.X -7f, Position.Y + 15f),0, direction, false);
+            
 
             timebetweenShot = 0.5f;
         }
@@ -133,31 +133,34 @@ public class PlayerShip :Actor
     
     
     //Collision with enemy
-    protected override void CollidedWithEntity(Scene scene, Entity entity)
+    protected override void CollidedWithActor(Scene scene, Actor actor)
     {
-        // Checks if it is an enemy
-        if (entity.enemy)
-        {
-            // Checks if player is immortal
-            if (invunrable <= 0)
+        
+        
+            // Checks if it is an enemy
+            if (actor.enemy)
             {
-                
-                // Makes the player immortal again
-                Destroy(scene); 
-                // Checks if it was an invader
-                if (entity is Invader)
+                // Checks if player is immortal
+                if (invunrable <= 0)
                 {
-                    // Makes the invader explode
-                    entity.Destroy(scene); 
+
+                    // Makes the player immortal again
+                    Destroy(scene);
+                    // Checks if it was an invader
+                    if (actor is Invader)
+                    {
+                        // Makes the invader explode
+                        actor.Destroy(scene);
+                    }
+
+                    // Makes the actor that was collided with set to dead.
+                    actor.Dead = true;
+
+                    // Lose health
+                    scene.eventManager.PublishLoseHealth(1);
                 }
-                // Makes the entity that was collided with set to dead.
-                entity.Dead = true; 
-            
-                // Lose health
-                scene.eventManager.PublishLoseHealth(1);
             }
-        }
-    
+        
     }
     
 }

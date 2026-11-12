@@ -86,18 +86,21 @@ public class Scene
     }
 
     
-    //Check if two entities intersects bounds through an Enumerable. 
+    //Check if two actors intersects bounds through an Enumerable. 
     //Same way in pacman.
-    public IEnumerable<Entity> FindEntityIntersects(FloatRect entityBounds)
+    public IEnumerable<Actor> FindActorIntersects(FloatRect actorBounds)
     {
         int lastInList = entities.Count - 1;
         for (int i = lastInList; i >=0; i--)
         {
-            Entity entity = entities[i];
-            if(entity.Dead) continue;
-            if (entity.Bounds.Intersects(entityBounds))
+            if (entities[i] is Actor actor)
             {
-                yield return entity;
+                if(actor.Dead) continue;
+            
+                if (actor.Bounds.Intersects(actorBounds))
+                {
+                    yield return actor;
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿using SFML.System;
-
+using SFML.Graphics;
 namespace Invaders;
 
 public class Actor :Entity
@@ -10,9 +10,11 @@ public class Actor :Entity
     //A float used to count the timebetweenShots in deltaTime.
     protected float timebetweenShot;
 
-    public int direction;
+    protected int direction;
     //Bool to check if actor should move.
     protected bool isMoving; 
+    //Public bool used for checking if the intersects are of type enemy.
+     public bool enemy;
     
     
     //I will reset the actors in different ways, Player, Enemy,Bullet etc.
@@ -21,14 +23,29 @@ public class Actor :Entity
     {
         
     }
+    
+    //Virtual property to send Global bounds to all entities.
+    public virtual FloatRect Bounds => sprite.GetGlobalBounds();
+    
     //Updates the actor behavior.
     public override void Update(Scene scene, float deltaTime)
     {
+        
+
         base.Update(scene, deltaTime);
+      
+        //Similar function to pacman, where it checks for any intersected bounds.
+        //Bullets colliding with enemy, and enemy bullets colliding to Playership.
+        foreach (Actor actor in scene.FindActorIntersects(Bounds))
+        {
+            CollidedWithActor(scene, actor);
+        }
+        
+       
         //Gives the actor the right direction
         direction = ChoseDirection(scene);
+
         //Checks if the actor may move.
-        
         if (!isMoving) 
         {
             return;
@@ -36,6 +53,10 @@ public class Actor :Entity
         Position += DirectionVector2F(direction) * (speed * deltaTime);
         
     }
+    
+    
+    
+    
 
     //Different vectors used by the actors.
     //Since the actors will have different speeds and directions we keep it protected but static to be reached outside of class.
@@ -67,5 +88,11 @@ public class Actor :Entity
     protected virtual int ChoseDirection(Scene scene)
     {
         return 0;
+    }
+    
+    
+    protected virtual void CollidedWithActor(Scene scene, Actor actor)
+    {
+        
     }
 }

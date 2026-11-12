@@ -7,7 +7,7 @@ public class Invader : Actor
 {
     private float timeBetweenBullets; //The cooldown of invader shooting
     //Calling explosion class to when the instance of enemy ship is destroyed.
-    public Explosion explosion = new Explosion();
+    private Explosion explosion = new Explosion();
 
     public Invader()
     {
@@ -36,9 +36,8 @@ public class Invader : Actor
         else
         {
             Bullet bullet = new Bullet();
-            bullet.enemy = true;
-            bullet.Shoot(scene, this);
-            bullet.Position = Position - new Vector2f(0, -16);
+            scene.Spawn(bullet);
+            bullet.Shoot(Position - new Vector2f(0, -16),sprite.Rotation, direction, true);
             timeBetweenBullets = RandomBulletTime();
         }
 
@@ -87,7 +86,7 @@ public class Invader : Actor
         {
             isMoving = true;
             sprite.Rotation = 225;
-            dir = 5;
+            dir = 5; 
         }
 
         return dir;
@@ -112,22 +111,25 @@ public class Invader : Actor
     
     
     //A collision check meant to check if the bullet fired is not an enemy (not its own bullet or other invader bullets)
-    protected override void CollidedWithEntity(Scene scene, Entity entity)
+    protected override void CollidedWithActor(Scene scene, Actor actor)
     {
-        if (entity is Bullet)
+        if (actor is Bullet)
         {
-            if (!entity.enemy)
+            if (!actor.enemy)
             {
                 Dead = true;
-                if (entity is Bullet)
+                if (actor is Bullet)
                 {
                     Destroy(scene);
-                    entity.Dead = true;
+                    actor.Dead = true;
                 }
             }
         }
+
     }
 
+  
+    
     //calls the explosion function here inside destroy.
     public override void Destroy(Scene scene)
     {

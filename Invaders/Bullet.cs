@@ -1,4 +1,5 @@
-﻿using System.Reflection.PortableExecutable;
+﻿using System.Numerics;
+using System.Reflection.PortableExecutable;
 
 namespace Invaders;
 using SFML.Graphics;
@@ -65,14 +66,15 @@ public class Bullet :Actor
     }
     
     //Creates that uses the same rotation adn direction that made it.
-    public void Shoot(Scene scene, Actor actor)
+    public void Shoot(Vector2f position, float rotation, int localDirection, bool isEnemy)
     {
-        //Spawns/instatiates the bullet in scene when shot.
-        scene.Spawn(this);
         
-        sprite.Rotation = actor.sprite.Rotation;
+        sprite.Position = position;
+        //Spawns instatiates the bullet in scene when shot.
+        sprite.Rotation = rotation;
         //Sets the bulletdirection depending on where the actor is rotated.
-        bulletDirection = actor.direction;
+        bulletDirection = localDirection;
 
+        enemy = isEnemy;
     }
 }
